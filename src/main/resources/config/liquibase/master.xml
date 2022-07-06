@@ -15,7 +15,21 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000447_added_entity_SiteAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000448_added_entity_ChallengeType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000449_added_entity_Mt4Account.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000450_added_entity_BillingDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000451_added_entity_TradersChallengeTracker.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000452_added_entity_UserNotification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000453_added_entity_Mt4Trade.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000454_added_entity_AccountDataTimeSeries.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20220706000447_added_entity_constraints_SiteAccount.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000448_added_entity_constraints_ChallengeType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000451_added_entity_constraints_TradersChallengeTracker.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000452_added_entity_constraints_UserNotification.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000453_added_entity_constraints_Mt4Trade.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20220706000454_added_entity_constraints_AccountDataTimeSeries.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
