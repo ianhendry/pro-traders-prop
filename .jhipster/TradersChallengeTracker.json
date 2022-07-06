@@ -1,0 +1,84 @@
+{
+  "applications": "*",
+  "changelogDate": "20220706000451",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "traders_challenge_tracker",
+  "fields": [
+    {
+      "fieldName": "tradeChallengeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "accountDayStartBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "accountDayStartEquity",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "runningMaxTotalDrawdown",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "runningMaxDailyDrawdown",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "lowestDrawdownPoint",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "rulesViolated",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "ruleViolated",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ruleViolatedDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "TradersChallengeTracker",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "accountID",
+      "otherEntityName": "mt4Account",
+      "otherEntityRelationshipName": "tradersChallengeTracker",
+      "ownerSide": true,
+      "relationshipName": "mt4Account",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "challengeTypeName",
+      "otherEntityName": "challengeType",
+      "otherEntityRelationshipName": "tradersChallengeTracker",
+      "relationshipName": "challengeType",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "tradersChallengeTracker",
+      "relationshipName": "user",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "userNotification",
+      "otherEntityRelationshipName": "tradersChallengeTracker",
+      "relationshipName": "userNotification",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

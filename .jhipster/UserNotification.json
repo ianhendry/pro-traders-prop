@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20220706000452",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "user_notification",
+  "fields": [
+    {
+      "fieldName": "commentTitle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "commentBody",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "commentMedia",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "dateAdded",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "makePublicVisibleOnSite",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "UserNotification",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "tradersChallengeTracker",
+      "otherEntityRelationshipName": "userNotification",
+      "relationshipName": "tradersChallengeTracker",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

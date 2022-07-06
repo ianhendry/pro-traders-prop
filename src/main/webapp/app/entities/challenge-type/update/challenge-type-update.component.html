@@ -1,0 +1,228 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-challenge-type-heading" data-cy="ChallengeTypeCreateUpdateHeading">Create or edit a Challenge Type</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_challengeTypeName">Challenge Type Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="challengeTypeName"
+            id="field_challengeTypeName"
+            data-cy="challengeTypeName"
+            formControlName="challengeTypeName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_price">Price</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('priceContentType')!.value + ';base64,' + editForm.get('price')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('price')!.value"
+              alt="challengeType image"
+            />
+            <div *ngIf="editForm.get('price')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('priceContentType')!.value }}, {{ byteSize(editForm.get('price')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('price', 'priceContentType', 'file_price')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_price" data-cy="price" (change)="setFileData($event, 'price', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="priceContentType"
+            id="field_priceContentType"
+            formControlName="priceContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_refundAfterComplete">Refund After Complete</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="refundAfterComplete"
+            id="field_refundAfterComplete"
+            data-cy="refundAfterComplete"
+            formControlName="refundAfterComplete"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_accountSize">Account Size</label>
+          <input
+            type="number"
+            class="form-control"
+            name="accountSize"
+            id="field_accountSize"
+            data-cy="accountSize"
+            formControlName="accountSize"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_profitTargetPhaseOne">Profit Target Phase One</label>
+          <input
+            type="number"
+            class="form-control"
+            name="profitTargetPhaseOne"
+            id="field_profitTargetPhaseOne"
+            data-cy="profitTargetPhaseOne"
+            formControlName="profitTargetPhaseOne"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_profitTargetPhaseTwo">Profit Target Phase Two</label>
+          <input
+            type="number"
+            class="form-control"
+            name="profitTargetPhaseTwo"
+            id="field_profitTargetPhaseTwo"
+            data-cy="profitTargetPhaseTwo"
+            formControlName="profitTargetPhaseTwo"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_durationDaysPhaseOne">Duration Days Phase One</label>
+          <input
+            type="number"
+            class="form-control"
+            name="durationDaysPhaseOne"
+            id="field_durationDaysPhaseOne"
+            data-cy="durationDaysPhaseOne"
+            formControlName="durationDaysPhaseOne"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_durationDaysPhaseTwo">Duration Days Phase Two</label>
+          <input
+            type="number"
+            class="form-control"
+            name="durationDaysPhaseTwo"
+            id="field_durationDaysPhaseTwo"
+            data-cy="durationDaysPhaseTwo"
+            formControlName="durationDaysPhaseTwo"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_maxDailyDrawdown">Max Daily Drawdown</label>
+          <input
+            type="number"
+            class="form-control"
+            name="maxDailyDrawdown"
+            id="field_maxDailyDrawdown"
+            data-cy="maxDailyDrawdown"
+            formControlName="maxDailyDrawdown"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_maxTotalDrawDown">Max Total Draw Down</label>
+          <input
+            type="number"
+            class="form-control"
+            name="maxTotalDrawDown"
+            id="field_maxTotalDrawDown"
+            data-cy="maxTotalDrawDown"
+            formControlName="maxTotalDrawDown"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_profitSplitRatio">Profit Split Ratio</label>
+          <input
+            type="number"
+            class="form-control"
+            name="profitSplitRatio"
+            id="field_profitSplitRatio"
+            data-cy="profitSplitRatio"
+            formControlName="profitSplitRatio"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_freeRetry">Free Retry</label>
+          <input type="checkbox" class="form-check" name="freeRetry" id="field_freeRetry" data-cy="freeRetry" formControlName="freeRetry" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userBio">User Bio</label>
+          <textarea class="form-control" name="userBio" id="field_userBio" data-cy="userBio" formControlName="userBio"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_inActive">In Active</label>
+          <input type="checkbox" class="form-check" name="inActive" id="field_inActive" data-cy="inActive" formControlName="inActive" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_inActiveDate">In Active Date</label>
+          <div class="d-flex">
+            <input
+              id="field_inActiveDate"
+              data-cy="inActiveDate"
+              type="datetime-local"
+              class="form-control"
+              name="inActiveDate"
+              formControlName="inActiveDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_siteAccount">Site Account</label>
+          <select class="form-control" id="field_siteAccount" data-cy="siteAccount" name="siteAccount" formControlName="siteAccount">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                siteAccountOption.id === editForm.get('siteAccount')!.value?.id ? editForm.get('siteAccount')!.value : siteAccountOption
+              "
+              *ngFor="let siteAccountOption of siteAccountsSharedCollection; trackBy: trackSiteAccountById"
+            >
+              {{ siteAccountOption.accountName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

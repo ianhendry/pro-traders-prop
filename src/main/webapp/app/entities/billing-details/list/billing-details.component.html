@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="BillingDetailsHeading">
+    <span>Billing Details</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-billing-details"
+        [routerLink]="['/billing-details/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Billing Details </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="billingDetails?.length === 0">
+    <span>No billingDetails found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="billingDetails && billingDetails.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Contact Name</span></th>
+          <th scope="col"><span>Address 1</span></th>
+          <th scope="col"><span>Address 2</span></th>
+          <th scope="col"><span>Address 3</span></th>
+          <th scope="col"><span>Address 4</span></th>
+          <th scope="col"><span>Address 5</span></th>
+          <th scope="col"><span>Address 6</span></th>
+          <th scope="col"><span>Dial Code</span></th>
+          <th scope="col"><span>Phone Number</span></th>
+          <th scope="col"><span>Messenger Id</span></th>
+          <th scope="col"><span>Date Added</span></th>
+          <th scope="col"><span>In Active</span></th>
+          <th scope="col"><span>In Active Date</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let billingDetails of billingDetails; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/billing-details', billingDetails.id, 'view']">{{ billingDetails.id }}</a>
+          </td>
+          <td>{{ billingDetails.contactName }}</td>
+          <td>{{ billingDetails.address1 }}</td>
+          <td>{{ billingDetails.address2 }}</td>
+          <td>{{ billingDetails.address3 }}</td>
+          <td>{{ billingDetails.address4 }}</td>
+          <td>{{ billingDetails.address5 }}</td>
+          <td>{{ billingDetails.address6 }}</td>
+          <td>{{ billingDetails.dialCode }}</td>
+          <td>{{ billingDetails.phoneNumber }}</td>
+          <td>{{ billingDetails.messengerId }}</td>
+          <td>{{ billingDetails.dateAdded | formatMediumDatetime }}</td>
+          <td>{{ billingDetails.inActive }}</td>
+          <td>{{ billingDetails.inActiveDate | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/billing-details', billingDetails.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/billing-details', billingDetails.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(billingDetails)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

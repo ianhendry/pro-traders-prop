@@ -1,0 +1,268 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="idcmih (generated)" id="1657097299939-1">
+        <createTable tableName="account_data_time_series">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="account_data_time_seriesPK"/>
+            </column>
+            <column name="account_balance" type="DOUBLE"/>
+            <column name="account_credit" type="DOUBLE"/>
+            <column name="account_equity" type="DOUBLE"/>
+            <column name="account_free_margin" type="DOUBLE"/>
+            <column name="account_stopout_level" type="INT"/>
+            <column name="date_stamp" type="TIMESTAMP"/>
+            <column name="open_lots" type="DOUBLE"/>
+            <column name="open_number_of_trades" type="INT"/>
+            <column name="mt4account_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-2">
+        <createTable tableName="billing_details">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="billing_detailsPK"/>
+            </column>
+            <column name="address_1" type="VARCHAR(255)"/>
+            <column name="address_2" type="VARCHAR(255)"/>
+            <column name="address_3" type="VARCHAR(255)"/>
+            <column name="address_4" type="VARCHAR(255)"/>
+            <column name="address_5" type="VARCHAR(255)"/>
+            <column name="address_6" type="VARCHAR(255)"/>
+            <column name="contact_name" type="VARCHAR(255)"/>
+            <column name="date_added" type="TIMESTAMP"/>
+            <column name="dial_code" type="VARCHAR(255)"/>
+            <column name="in_active" type="BOOLEAN"/>
+            <column name="in_active_date" type="TIMESTAMP"/>
+            <column name="messenger_id" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-3">
+        <createTable tableName="challenge_type">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="challenge_typePK"/>
+            </column>
+            <column name="account_size" type="INT"/>
+            <column name="challenge_type_name" type="VARCHAR(255)"/>
+            <column name="duration_days_phase_one" type="INT"/>
+            <column name="duration_days_phase_two" type="INT"/>
+            <column name="free_retry" type="BOOLEAN"/>
+            <column name="in_active" type="BOOLEAN"/>
+            <column name="in_active_date" type="TIMESTAMP"/>
+            <column name="max_daily_drawdown" type="INT"/>
+            <column name="max_total_draw_down" type="INT"/>
+            <column name="price" type="BLOB"/>
+            <column name="price_content_type" type="VARCHAR(255)"/>
+            <column name="profit_split_ratio" type="INT"/>
+            <column name="profit_target_phase_one" type="INT"/>
+            <column name="profit_target_phase_two" type="INT"/>
+            <column name="refund_after_complete" type="BOOLEAN"/>
+            <column name="user_bio" type="CLOB"/>
+            <column name="site_account_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-4">
+        <createTable tableName="jhi_authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-5">
+        <createTable tableName="jhi_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="jhi_userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="TIMESTAMP"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="TIMESTAMP"/>
+            <column name="activated" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="TIMESTAMP"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-6">
+        <createTable tableName="jhi_user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-7">
+        <createTable tableName="mt_4_account">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="mt_4_accountPK"/>
+            </column>
+            <column name="account_balance" type="DOUBLE"/>
+            <column name="account_broker" type="VARCHAR(255)"/>
+            <column name="account_company" type="VARCHAR(255)"/>
+            <column name="account_credit" type="DOUBLE"/>
+            <column name="account_currency" type="VARCHAR(255)"/>
+            <column name="account_equity" type="DOUBLE"/>
+            <column name="account_free_margin" type="DOUBLE"/>
+            <column name="account_free_margin_check" type="DOUBLE"/>
+            <column name="account_free_margin_mode" type="DOUBLE"/>
+            <column name="account_id" type="VARCHAR(255)"/>
+            <column name="account_info_double" type="DOUBLE"/>
+            <column name="account_info_integer" type="INT"/>
+            <column name="account_info_string" type="VARCHAR(255)"/>
+            <column name="account_investor_login" type="VARCHAR(255)"/>
+            <column name="account_investor_password" type="VARCHAR(255)"/>
+            <column name="account_leverage" type="INT"/>
+            <column name="account_login" type="VARCHAR(255)"/>
+            <column name="account_margin" type="DOUBLE"/>
+            <column name="account_name" type="VARCHAR(255)"/>
+            <column name="account_number" type="INT"/>
+            <column name="account_password" type="VARCHAR(255)"/>
+            <column name="account_profit" type="DOUBLE"/>
+            <column name="account_real" type="BOOLEAN"/>
+            <column name="account_server" type="VARCHAR(255)"/>
+            <column name="account_stopout_level" type="INT"/>
+            <column name="account_stopout_mode" type="INT"/>
+            <column name="account_type" type="VARCHAR(255)"/>
+            <column name="in_active" type="BOOLEAN"/>
+            <column name="in_active_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-8">
+        <createTable tableName="mt_4_trade">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="mt_4_tradePK"/>
+            </column>
+            <column name="close_price" type="DOUBLE"/>
+            <column name="close_time" type="TIMESTAMP"/>
+            <column name="commission" type="DOUBLE"/>
+            <column name="direction_type" type="VARCHAR(255)"/>
+            <column name="open_price" type="DOUBLE"/>
+            <column name="open_time" type="TIMESTAMP"/>
+            <column name="position_size" type="DOUBLE"/>
+            <column name="profit" type="DOUBLE"/>
+            <column name="stop_loss_price" type="DOUBLE"/>
+            <column name="swap" type="DOUBLE"/>
+            <column name="symbol" type="VARCHAR(255)"/>
+            <column name="take_profit_price" type="DOUBLE"/>
+            <column name="taxes" type="DOUBLE"/>
+            <column name="ticket" type="DECIMAL(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mt4account_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-9">
+        <createTable tableName="site_account">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="site_accountPK"/>
+            </column>
+            <column name="account_name" type="VARCHAR(255)"/>
+            <column name="in_active" type="BOOLEAN"/>
+            <column name="in_active_date" type="TIMESTAMP"/>
+            <column name="user_bio" type="CLOB"/>
+            <column name="user_picture" type="BLOB"/>
+            <column name="user_picture_content_type" type="VARCHAR(255)"/>
+            <column name="address_details_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-10">
+        <createTable tableName="traders_challenge_tracker">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="traders_challenge_trackerPK"/>
+            </column>
+            <column name="account_day_start_balance" type="DOUBLE"/>
+            <column name="account_day_start_equity" type="DOUBLE"/>
+            <column name="lowest_drawdown_point" type="DOUBLE"/>
+            <column name="rule_violated" type="VARCHAR(255)"/>
+            <column name="rule_violated_date" type="TIMESTAMP"/>
+            <column name="rules_violated" type="BOOLEAN"/>
+            <column name="running_max_daily_drawdown" type="DOUBLE"/>
+            <column name="running_max_total_drawdown" type="DOUBLE"/>
+            <column name="start_date" type="TIMESTAMP"/>
+            <column name="trade_challenge_name" type="VARCHAR(255)"/>
+            <column name="challenge_type_id" type="BIGINT"/>
+            <column name="mt4account_id" type="BIGINT"/>
+            <column name="user_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-11">
+        <createTable tableName="user_notification">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_notificationPK"/>
+            </column>
+            <column name="comment_body" type="CLOB"/>
+            <column name="comment_media" type="BLOB"/>
+            <column name="comment_media_content_type" type="VARCHAR(255)"/>
+            <column name="comment_title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_added" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="make_public_visible_on_site" type="BOOLEAN"/>
+            <column name="traders_challenge_tracker_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-12">
+        <addUniqueConstraint columnNames="email" constraintName="UC_JHI_USEREMAIL_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-13">
+        <addUniqueConstraint columnNames="login" constraintName="UC_JHI_USERLOGIN_COL" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-14">
+        <addUniqueConstraint columnNames="user_id" constraintName="UC_SITE_ACCOUNTUSER_ID_COL" tableName="site_account"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-15">
+        <addUniqueConstraint columnNames="mt4account_id" constraintName="UC_TRADERS_CHALLENGE_TRACKERMT4ACCOUNT_ID_COL" tableName="traders_challenge_tracker"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-16">
+        <addForeignKeyConstraint baseColumnNames="challenge_type_id" baseTableName="traders_challenge_tracker" constraintName="FK1naex6cjg5prvr51xk7ccpa0j" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="challenge_type" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-17">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="jhi_user_authority" constraintName="FK290okww5jujghp4el5i7mgwu0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-18">
+        <addForeignKeyConstraint baseColumnNames="address_details_id" baseTableName="site_account" constraintName="FK4dil8ls008rqu8nyyvk7i4f8u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="billing_details" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-19">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="jhi_user_authority" constraintName="FK4psxl0jtx6nr7rhqbynr6itoc" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="jhi_authority" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-20">
+        <addForeignKeyConstraint baseColumnNames="site_account_id" baseTableName="challenge_type" constraintName="FK8h4tsshvfycqsx4qkapwx7q8h" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="site_account" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-21">
+        <addForeignKeyConstraint baseColumnNames="mt4account_id" baseTableName="mt_4_trade" constraintName="FKatcqmw7dl1jdmtlr8cm4xb3nk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="mt_4_account" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-22">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="traders_challenge_tracker" constraintName="FKe6uit1sedkech1x6gu0o66gpu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-23">
+        <addForeignKeyConstraint baseColumnNames="mt4account_id" baseTableName="account_data_time_series" constraintName="FKn3mhhehok3f9r7pwnxphvxksr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="mt_4_account" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-24">
+        <addForeignKeyConstraint baseColumnNames="mt4account_id" baseTableName="traders_challenge_tracker" constraintName="FKodi9vemiw12lsxusf89wxauye" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="mt_4_account" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-25">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="site_account" constraintName="FKrfrtxijyym507r71rt30itsf1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="idcmih (generated)" id="1657097299939-26">
+        <addForeignKeyConstraint baseColumnNames="traders_challenge_tracker_id" baseTableName="user_notification" constraintName="FKsw09nc2cd4r4fqtddd98atlnk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="traders_challenge_tracker" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

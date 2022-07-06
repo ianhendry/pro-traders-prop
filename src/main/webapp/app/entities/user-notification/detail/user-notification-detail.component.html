@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userNotification">
+      <h2 data-cy="userNotificationDetailsHeading"><span>User Notification</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ userNotification.id }}</span>
+        </dd>
+        <dt><span>Comment Title</span></dt>
+        <dd>
+          <span>{{ userNotification.commentTitle }}</span>
+        </dd>
+        <dt><span>Comment Body</span></dt>
+        <dd>
+          <span>{{ userNotification.commentBody }}</span>
+        </dd>
+        <dt><span>Comment Media</span></dt>
+        <dd>
+          <div *ngIf="userNotification.commentMedia">
+            <a (click)="openFile(userNotification.commentMedia, userNotification.commentMediaContentType)">open</a>
+            {{ userNotification.commentMediaContentType }}, {{ byteSize(userNotification.commentMedia) }}
+          </div>
+        </dd>
+        <dt><span>Date Added</span></dt>
+        <dd>
+          <span>{{ userNotification.dateAdded | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Make Public Visible On Site</span></dt>
+        <dd>
+          <span>{{ userNotification.makePublicVisibleOnSite }}</span>
+        </dd>
+        <dt><span>Traders Challenge Tracker</span></dt>
+        <dd>
+          <div *ngIf="userNotification.tradersChallengeTracker">
+            <a [routerLink]="['/traders-challenge-tracker', userNotification.tradersChallengeTracker?.id, 'view']">{{
+              userNotification.tradersChallengeTracker?.id
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-notification', userNotification.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="billingDetails">
+      <h2 data-cy="billingDetailsDetailsHeading"><span>Billing Details</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ billingDetails.id }}</span>
+        </dd>
+        <dt><span>Contact Name</span></dt>
+        <dd>
+          <span>{{ billingDetails.contactName }}</span>
+        </dd>
+        <dt><span>Address 1</span></dt>
+        <dd>
+          <span>{{ billingDetails.address1 }}</span>
+        </dd>
+        <dt><span>Address 2</span></dt>
+        <dd>
+          <span>{{ billingDetails.address2 }}</span>
+        </dd>
+        <dt><span>Address 3</span></dt>
+        <dd>
+          <span>{{ billingDetails.address3 }}</span>
+        </dd>
+        <dt><span>Address 4</span></dt>
+        <dd>
+          <span>{{ billingDetails.address4 }}</span>
+        </dd>
+        <dt><span>Address 5</span></dt>
+        <dd>
+          <span>{{ billingDetails.address5 }}</span>
+        </dd>
+        <dt><span>Address 6</span></dt>
+        <dd>
+          <span>{{ billingDetails.address6 }}</span>
+        </dd>
+        <dt><span>Dial Code</span></dt>
+        <dd>
+          <span>{{ billingDetails.dialCode }}</span>
+        </dd>
+        <dt><span>Phone Number</span></dt>
+        <dd>
+          <span>{{ billingDetails.phoneNumber }}</span>
+        </dd>
+        <dt><span>Messenger Id</span></dt>
+        <dd>
+          <span>{{ billingDetails.messengerId }}</span>
+        </dd>
+        <dt><span>Date Added</span></dt>
+        <dd>
+          <span>{{ billingDetails.dateAdded | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>In Active</span></dt>
+        <dd>
+          <span>{{ billingDetails.inActive }}</span>
+        </dd>
+        <dt><span>In Active Date</span></dt>
+        <dd>
+          <span>{{ billingDetails.inActiveDate | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/billing-details', billingDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

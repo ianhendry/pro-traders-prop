@@ -1,0 +1,155 @@
+enum ACCOUNTTYPE {
+  REAL, DEMO
+}
+
+enum BROKER {
+  FXPRO, ALPARI, THINKMARKETS, PEPPERSTONE
+}
+
+enum TRADEDIRECTION {
+  BUY, SELL
+}
+entity SiteAccount {
+    accountName String,
+    userPicture ImageBlob,
+    userBio TextBlob,
+    inActive Boolean,
+    inActiveDate Instant
+}
+
+entity ChallengeType {
+    challengeTypeName String,
+    price ImageBlob,
+    refundAfterComplete Boolean,
+    accountSize Integer,
+    profitTargetPhaseOne Integer,
+    profitTargetPhaseTwo Integer,
+    durationDaysPhaseOne Integer,
+    durationDaysPhaseTwo Integer,
+    maxDailyDrawdown Integer,
+    maxTotalDrawDown Integer,
+    profitSplitRatio Integer,
+    freeRetry Boolean,
+    userBio TextBlob,
+    inActive Boolean,
+    inActiveDate Instant
+}
+
+entity Mt4Account {
+  accountID String,
+  accountType ACCOUNTTYPE,
+    accountBroker BROKER,
+    accountLogin String,
+    accountPassword String,
+    accountInvestorLogin String,
+    accountInvestorPassword String,
+    accountReal Boolean,
+    accountInfoDouble Double,
+  accountInfoInteger Integer,
+  accountInfoString String,
+  accountBalance Double,
+  accountCredit Double,
+  accountCompany String,
+  accountCurrency String,
+  accountEquity Double,
+  accountFreeMargin Double,
+  accountFreeMarginCheck Double,
+  accountFreeMarginMode Double,
+  accountLeverage Integer,
+  accountMargin Double,
+  accountName String,
+  accountNumber Integer,
+  accountProfit Double,
+  accountServer String,
+  accountStopoutLevel Integer,
+  accountStopoutMode Integer,
+    inActive Boolean,
+    inActiveDate Instant
+}
+
+entity BillingDetails {
+    contactName String,
+    address1 String,
+    address2 String,
+    address3 String,
+    address4 String,
+    address5 String,
+    address6 String,
+    dialCode String,
+    phoneNumber String,
+    messengerId String,
+    dateAdded Instant,
+    inActive Boolean,
+    inActiveDate Instant
+}
+
+entity TradersChallengeTracker {
+  tradeChallengeName String,
+  startDate Instant,
+    accountDayStartBalance Double,
+    accountDayStartEquity Double,
+    runningMaxTotalDrawdown Double,
+    runningMaxDailyDrawdown Double,
+    lowestDrawdownPoint Double,
+    rulesViolated Boolean,
+    ruleViolated String,
+    ruleViolatedDate Instant
+}
+
+entity UserNotification {
+  commentTitle String required,
+    commentBody TextBlob,
+    commentMedia AnyBlob,
+    dateAdded Instant required,
+  makePublicVisibleOnSite Boolean
+}
+
+entity Mt4Trade {
+  ticket BigDecimal required,
+    openTime Instant,
+    directionType TRADEDIRECTION,
+    positionSize Double,
+    symbol String,
+    openPrice Double,
+    stopLossPrice Double,
+    takeProfitPrice Double,
+    closeTime Instant,
+    closePrice Double,
+    commission Double,
+    taxes Double,
+    swap Double,
+    profit Double
+}
+
+entity AccountDataTimeSeries {
+  dateStamp Instant,
+    accountBalance Double,
+    accountEquity Double,
+    accountCredit Double,
+  accountFreeMargin Double,
+  accountStopoutLevel Integer,
+    openLots Double,
+    openNumberOfTrades Integer,
+}
+
+relationship ManyToOne {
+  SiteAccount{addressDetails(contactName)} to BillingDetails{siteAccount}
+    ChallengeType{siteAccount(accountName)} to SiteAccount
+    TradersChallengeTracker{challengeType(challengeTypeName)} to ChallengeType
+  Mt4Trade{mt4Account(accountID)} to Mt4Account{mt4Trade}
+    AccountDataTimeSeries{mt4Account(accountID)} to Mt4Account{accountDataTimeSeries}
+    UserNotification to TradersChallengeTracker
+    TradersChallengeTracker to User
+}
+
+relationship OneToOne {
+  SiteAccount{user(login)} to User
+    TradersChallengeTracker{mt4Account(accountID)} to Mt4Account
+}
+
+// Set pagination options
+paginate UserNotification, Mt4Account, Mt4Trade, SiteAccount, ChallengeType, TradersChallengeTracker with pagination
+
+// Set service options to all except few
+service all with serviceImpl
+filter Mt4Account, Mt4Trade, SiteAccount, UserNotification, BillingDetails, TradersChallengeTracker

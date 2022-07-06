@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="siteAccount">
+      <h2 data-cy="siteAccountDetailsHeading"><span>Site Account</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ siteAccount.id }}</span>
+        </dd>
+        <dt><span>Account Name</span></dt>
+        <dd>
+          <span>{{ siteAccount.accountName }}</span>
+        </dd>
+        <dt><span>User Picture</span></dt>
+        <dd>
+          <div *ngIf="siteAccount.userPicture">
+            <a (click)="openFile(siteAccount.userPicture, siteAccount.userPictureContentType)">
+              <img
+                [src]="'data:' + siteAccount.userPictureContentType + ';base64,' + siteAccount.userPicture"
+                style="max-width: 100%"
+                alt="siteAccount image"
+              />
+            </a>
+            {{ siteAccount.userPictureContentType }}, {{ byteSize(siteAccount.userPicture) }}
+          </div>
+        </dd>
+        <dt><span>User Bio</span></dt>
+        <dd>
+          <span>{{ siteAccount.userBio }}</span>
+        </dd>
+        <dt><span>In Active</span></dt>
+        <dd>
+          <span>{{ siteAccount.inActive }}</span>
+        </dd>
+        <dt><span>In Active Date</span></dt>
+        <dd>
+          <span>{{ siteAccount.inActiveDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ siteAccount.user?.login }}</span>
+        </dd>
+        <dt><span>Address Details</span></dt>
+        <dd>
+          <div *ngIf="siteAccount.addressDetails">
+            <a [routerLink]="['/billing-details', siteAccount.addressDetails?.id, 'view']">{{ siteAccount.addressDetails?.contactName }}</a>
+          </div>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ siteAccount.user?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/site-account', siteAccount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

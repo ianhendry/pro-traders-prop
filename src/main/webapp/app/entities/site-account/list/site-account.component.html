@@ -1,0 +1,129 @@
+<div>
+  <h2 id="page-heading" data-cy="SiteAccountHeading">
+    <span>Site Accounts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-site-account"
+        [routerLink]="['/site-account/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Site Account </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="siteAccounts?.length === 0">
+    <span>No siteAccounts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="siteAccounts && siteAccounts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="accountName"><span>Account Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="userPicture"><span>User Picture</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="userBio"><span>User Bio</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="inActive"><span>In Active</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="inActiveDate"><span>In Active Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="user.login"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="addressDetails.contactName"><span>Address Details</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="user.id"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let siteAccount of siteAccounts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/site-account', siteAccount.id, 'view']">{{ siteAccount.id }}</a>
+          </td>
+          <td>{{ siteAccount.accountName }}</td>
+          <td>
+            <a *ngIf="siteAccount.userPicture" (click)="openFile(siteAccount.userPicture, siteAccount.userPictureContentType)">
+              <img
+                [src]="'data:' + siteAccount.userPictureContentType + ';base64,' + siteAccount.userPicture"
+                style="max-height: 30px"
+                alt="siteAccount image"
+              />
+            </a>
+            <span *ngIf="siteAccount.userPicture">{{ siteAccount.userPictureContentType }}, {{ byteSize(siteAccount.userPicture) }}</span>
+          </td>
+          <td>{{ siteAccount.userBio }}</td>
+          <td>{{ siteAccount.inActive }}</td>
+          <td>{{ siteAccount.inActiveDate | formatMediumDatetime }}</td>
+          <td>
+            {{ siteAccount.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="siteAccount.addressDetails">
+              <a [routerLink]="['/billing-details', siteAccount.addressDetails?.id, 'view']">{{
+                siteAccount.addressDetails?.contactName
+              }}</a>
+            </div>
+          </td>
+          <td>
+            {{ siteAccount.user?.id }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/site-account', siteAccount.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/site-account', siteAccount.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(siteAccount)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="siteAccounts && siteAccounts.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

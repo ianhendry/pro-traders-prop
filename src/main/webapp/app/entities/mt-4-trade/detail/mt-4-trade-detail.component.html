@@ -1,0 +1,90 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="mt4Trade">
+      <h2 data-cy="mt4TradeDetailsHeading"><span>Mt 4 Trade</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ mt4Trade.id }}</span>
+        </dd>
+        <dt><span>Ticket</span></dt>
+        <dd>
+          <span>{{ mt4Trade.ticket }}</span>
+        </dd>
+        <dt><span>Open Time</span></dt>
+        <dd>
+          <span>{{ mt4Trade.openTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Direction Type</span></dt>
+        <dd>
+          <span>{{ mt4Trade.directionType }}</span>
+        </dd>
+        <dt><span>Position Size</span></dt>
+        <dd>
+          <span>{{ mt4Trade.positionSize }}</span>
+        </dd>
+        <dt><span>Symbol</span></dt>
+        <dd>
+          <span>{{ mt4Trade.symbol }}</span>
+        </dd>
+        <dt><span>Open Price</span></dt>
+        <dd>
+          <span>{{ mt4Trade.openPrice }}</span>
+        </dd>
+        <dt><span>Stop Loss Price</span></dt>
+        <dd>
+          <span>{{ mt4Trade.stopLossPrice }}</span>
+        </dd>
+        <dt><span>Take Profit Price</span></dt>
+        <dd>
+          <span>{{ mt4Trade.takeProfitPrice }}</span>
+        </dd>
+        <dt><span>Close Time</span></dt>
+        <dd>
+          <span>{{ mt4Trade.closeTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Close Price</span></dt>
+        <dd>
+          <span>{{ mt4Trade.closePrice }}</span>
+        </dd>
+        <dt><span>Commission</span></dt>
+        <dd>
+          <span>{{ mt4Trade.commission }}</span>
+        </dd>
+        <dt><span>Taxes</span></dt>
+        <dd>
+          <span>{{ mt4Trade.taxes }}</span>
+        </dd>
+        <dt><span>Swap</span></dt>
+        <dd>
+          <span>{{ mt4Trade.swap }}</span>
+        </dd>
+        <dt><span>Profit</span></dt>
+        <dd>
+          <span>{{ mt4Trade.profit }}</span>
+        </dd>
+        <dt><span>Mt 4 Account</span></dt>
+        <dd>
+          <div *ngIf="mt4Trade.mt4Account">
+            <a [routerLink]="['/mt-4-account', mt4Trade.mt4Account?.id, 'view']">{{ mt4Trade.mt4Account?.accountID }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/mt-4-trade', mt4Trade.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

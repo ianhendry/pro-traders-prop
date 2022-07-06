@@ -1,0 +1,144 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="mt4Account">
+      <h2 data-cy="mt4AccountDetailsHeading"><span>Mt 4 Account</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ mt4Account.id }}</span>
+        </dd>
+        <dt><span>Account ID</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountID }}</span>
+        </dd>
+        <dt><span>Account Type</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountType }}</span>
+        </dd>
+        <dt><span>Account Broker</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountBroker }}</span>
+        </dd>
+        <dt><span>Account Login</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountLogin }}</span>
+        </dd>
+        <dt><span>Account Password</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountPassword }}</span>
+        </dd>
+        <dt><span>Account Investor Login</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountInvestorLogin }}</span>
+        </dd>
+        <dt><span>Account Investor Password</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountInvestorPassword }}</span>
+        </dd>
+        <dt><span>Account Real</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountReal }}</span>
+        </dd>
+        <dt><span>Account Info Double</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountInfoDouble }}</span>
+        </dd>
+        <dt><span>Account Info Integer</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountInfoInteger }}</span>
+        </dd>
+        <dt><span>Account Info String</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountInfoString }}</span>
+        </dd>
+        <dt><span>Account Balance</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountBalance }}</span>
+        </dd>
+        <dt><span>Account Credit</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountCredit }}</span>
+        </dd>
+        <dt><span>Account Company</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountCompany }}</span>
+        </dd>
+        <dt><span>Account Currency</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountCurrency }}</span>
+        </dd>
+        <dt><span>Account Equity</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountEquity }}</span>
+        </dd>
+        <dt><span>Account Free Margin</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountFreeMargin }}</span>
+        </dd>
+        <dt><span>Account Free Margin Check</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountFreeMarginCheck }}</span>
+        </dd>
+        <dt><span>Account Free Margin Mode</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountFreeMarginMode }}</span>
+        </dd>
+        <dt><span>Account Leverage</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountLeverage }}</span>
+        </dd>
+        <dt><span>Account Margin</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountMargin }}</span>
+        </dd>
+        <dt><span>Account Name</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountName }}</span>
+        </dd>
+        <dt><span>Account Number</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountNumber }}</span>
+        </dd>
+        <dt><span>Account Profit</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountProfit }}</span>
+        </dd>
+        <dt><span>Account Server</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountServer }}</span>
+        </dd>
+        <dt><span>Account Stopout Level</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountStopoutLevel }}</span>
+        </dd>
+        <dt><span>Account Stopout Mode</span></dt>
+        <dd>
+          <span>{{ mt4Account.accountStopoutMode }}</span>
+        </dd>
+        <dt><span>In Active</span></dt>
+        <dd>
+          <span>{{ mt4Account.inActive }}</span>
+        </dd>
+        <dt><span>In Active Date</span></dt>
+        <dd>
+          <span>{{ mt4Account.inActiveDate | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/mt-4-account', mt4Account.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

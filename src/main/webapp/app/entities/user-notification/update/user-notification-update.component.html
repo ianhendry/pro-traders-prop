@@ -1,0 +1,156 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-user-notification-heading" data-cy="UserNotificationCreateUpdateHeading">Create or edit a User Notification</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_commentTitle">Comment Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="commentTitle"
+            id="field_commentTitle"
+            data-cy="commentTitle"
+            formControlName="commentTitle"
+          />
+          <div
+            *ngIf="editForm.get('commentTitle')!.invalid && (editForm.get('commentTitle')!.dirty || editForm.get('commentTitle')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('commentTitle')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_commentBody">Comment Body</label>
+          <textarea
+            class="form-control"
+            name="commentBody"
+            id="field_commentBody"
+            data-cy="commentBody"
+            formControlName="commentBody"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_commentMedia">Comment Media</label>
+          <div>
+            <div *ngIf="editForm.get('commentMedia')!.value" class="form-text text-danger clearfix">
+              <a class="pull-start" (click)="openFile(editForm.get('commentMedia')!.value, editForm.get('commentMediaContentType')!.value)"
+                >open</a
+              ><br />
+              <span class="pull-start"
+                >{{ editForm.get('commentMediaContentType')!.value }}, {{ byteSize(editForm.get('commentMedia')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="editForm.patchValue({ commentMedia: null }); editForm.patchValue({ commentMediaContentType: null })"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_commentMedia" data-cy="commentMedia" (change)="setFileData($event, 'commentMedia', false)" />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="commentMedia"
+            id="field_commentMedia"
+            data-cy="commentMedia"
+            formControlName="commentMedia"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="commentMediaContentType"
+            id="field_commentMediaContentType"
+            formControlName="commentMediaContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dateAdded">Date Added</label>
+          <div class="d-flex">
+            <input
+              id="field_dateAdded"
+              data-cy="dateAdded"
+              type="datetime-local"
+              class="form-control"
+              name="dateAdded"
+              formControlName="dateAdded"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('dateAdded')!.invalid && (editForm.get('dateAdded')!.dirty || editForm.get('dateAdded')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('dateAdded')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('dateAdded')?.errors?.ZonedDateTimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_makePublicVisibleOnSite">Make Public Visible On Site</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="makePublicVisibleOnSite"
+            id="field_makePublicVisibleOnSite"
+            data-cy="makePublicVisibleOnSite"
+            formControlName="makePublicVisibleOnSite"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_tradersChallengeTracker">Traders Challenge Tracker</label>
+          <select
+            class="form-control"
+            id="field_tradersChallengeTracker"
+            data-cy="tradersChallengeTracker"
+            name="tradersChallengeTracker"
+            formControlName="tradersChallengeTracker"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                tradersChallengeTrackerOption.id === editForm.get('tradersChallengeTracker')!.value?.id
+                  ? editForm.get('tradersChallengeTracker')!.value
+                  : tradersChallengeTrackerOption
+              "
+              *ngFor="
+                let tradersChallengeTrackerOption of tradersChallengeTrackersSharedCollection;
+                trackBy: trackTradersChallengeTrackerById
+              "
+            >
+              {{ tradersChallengeTrackerOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

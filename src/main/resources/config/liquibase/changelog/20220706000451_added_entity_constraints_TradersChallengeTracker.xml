@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity TradersChallengeTracker.
+    -->
+    <changeSet id="20220706000451-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="mt4account_id"
+                                 baseTableName="traders_challenge_tracker"
+                                 constraintName="fk_traders_challenge_tracker__mt4account_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mt_4_account"/>
+
+        <addForeignKeyConstraint baseColumnNames="challenge_type_id"
+                                 baseTableName="traders_challenge_tracker"
+                                 constraintName="fk_traders_challenge_tracker__challenge_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="challenge_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="traders_challenge_tracker"
+                                 constraintName="fk_traders_challenge_tracker__user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,11 @@
+id;account_name;user_picture;user_picture_content_type;user_bio;in_active;in_active_date
+1;Money Market Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;false;2022-07-05T08:23:09
+2;Investment Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T18:21:40
+3;Investment Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T22:15:04
+4;Savings Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;false;2022-07-05T09:12:53
+5;Money Market Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T15:42:37
+6;Savings Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T13:43:20
+7;Checking Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;false;2022-07-05T22:03:36
+8;Money Market Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T12:54:22
+9;Credit Card Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T13:09:22
+10;Auto Loan Account;../fake-data/blob/hipster.png;image/png;../fake-data/blob/hipster.txt;true;2022-07-05T07:56:12

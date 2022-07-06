@@ -1,0 +1,128 @@
+<div>
+  <h2 id="page-heading" data-cy="Mt4TradeHeading">
+    <span>Mt 4 Trades</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-mt-4-trade"
+        [routerLink]="['/mt-4-trade/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Mt 4 Trade </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="mt4Trades?.length === 0">
+    <span>No mt4Trades found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="mt4Trades && mt4Trades.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ticket"><span>Ticket</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="openTime"><span>Open Time</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="directionType"><span>Direction Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="positionSize"><span>Position Size</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="symbol"><span>Symbol</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="openPrice"><span>Open Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="stopLossPrice"><span>Stop Loss Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="takeProfitPrice"><span>Take Profit Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="closeTime"><span>Close Time</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="closePrice"><span>Close Price</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="commission"><span>Commission</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="taxes"><span>Taxes</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="swap"><span>Swap</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="profit"><span>Profit</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="mt4Account.accountID"><span>Mt 4 Account</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mt4Trade of mt4Trades; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/mt-4-trade', mt4Trade.id, 'view']">{{ mt4Trade.id }}</a>
+          </td>
+          <td>{{ mt4Trade.ticket }}</td>
+          <td>{{ mt4Trade.openTime | formatMediumDatetime }}</td>
+          <td>{{ mt4Trade.directionType }}</td>
+          <td>{{ mt4Trade.positionSize }}</td>
+          <td>{{ mt4Trade.symbol }}</td>
+          <td>{{ mt4Trade.openPrice }}</td>
+          <td>{{ mt4Trade.stopLossPrice }}</td>
+          <td>{{ mt4Trade.takeProfitPrice }}</td>
+          <td>{{ mt4Trade.closeTime | formatMediumDatetime }}</td>
+          <td>{{ mt4Trade.closePrice }}</td>
+          <td>{{ mt4Trade.commission }}</td>
+          <td>{{ mt4Trade.taxes }}</td>
+          <td>{{ mt4Trade.swap }}</td>
+          <td>{{ mt4Trade.profit }}</td>
+          <td>
+            <div *ngIf="mt4Trade.mt4Account">
+              <a [routerLink]="['/mt-4-account', mt4Trade.mt4Account?.id, 'view']">{{ mt4Trade.mt4Account?.accountID }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/mt-4-trade', mt4Trade.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/mt-4-trade', mt4Trade.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(mt4Trade)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="mt4Trades && mt4Trades.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

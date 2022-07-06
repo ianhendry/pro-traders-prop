@@ -1,0 +1,75 @@
+{
+  "applications": "*",
+  "changelogDate": "20220706000450",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "billing_details",
+  "fields": [
+    {
+      "fieldName": "contactName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address3",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address4",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address5",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address6",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dialCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "phoneNumber",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "messengerId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateAdded",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "inActive",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "inActiveDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "BillingDetails",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "siteAccount",
+      "otherEntityRelationshipName": "addressDetails",
+      "relationshipName": "siteAccount",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}

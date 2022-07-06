@@ -1,0 +1,86 @@
+{
+  "applications": "*",
+  "changelogDate": "20220706000448",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "challenge_type",
+  "fields": [
+    {
+      "fieldName": "challengeTypeName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "refundAfterComplete",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "accountSize",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "profitTargetPhaseOne",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "profitTargetPhaseTwo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "durationDaysPhaseOne",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "durationDaysPhaseTwo",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxDailyDrawdown",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "maxTotalDrawDown",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "profitSplitRatio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "freeRetry",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "userBio",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "inActive",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "inActiveDate",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ChallengeType",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "accountName",
+      "otherEntityName": "siteAccount",
+      "otherEntityRelationshipName": "challengeType",
+      "relationshipName": "siteAccount",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

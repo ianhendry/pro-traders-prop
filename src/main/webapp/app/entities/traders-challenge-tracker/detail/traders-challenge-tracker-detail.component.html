@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="tradersChallengeTracker">
+      <h2 data-cy="tradersChallengeTrackerDetailsHeading"><span>Traders Challenge Tracker</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.id }}</span>
+        </dd>
+        <dt><span>Trade Challenge Name</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.tradeChallengeName }}</span>
+        </dd>
+        <dt><span>Start Date</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.startDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Account Day Start Balance</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.accountDayStartBalance }}</span>
+        </dd>
+        <dt><span>Account Day Start Equity</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.accountDayStartEquity }}</span>
+        </dd>
+        <dt><span>Running Max Total Drawdown</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.runningMaxTotalDrawdown }}</span>
+        </dd>
+        <dt><span>Running Max Daily Drawdown</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.runningMaxDailyDrawdown }}</span>
+        </dd>
+        <dt><span>Lowest Drawdown Point</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.lowestDrawdownPoint }}</span>
+        </dd>
+        <dt><span>Rules Violated</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.rulesViolated }}</span>
+        </dd>
+        <dt><span>Rule Violated</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.ruleViolated }}</span>
+        </dd>
+        <dt><span>Rule Violated Date</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.ruleViolatedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Mt 4 Account</span></dt>
+        <dd>
+          <div *ngIf="tradersChallengeTracker.mt4Account">
+            <a [routerLink]="['/mt-4-account', tradersChallengeTracker.mt4Account?.id, 'view']">{{
+              tradersChallengeTracker.mt4Account?.accountID
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Challenge Type</span></dt>
+        <dd>
+          <div *ngIf="tradersChallengeTracker.challengeType">
+            <a [routerLink]="['/challenge-type', tradersChallengeTracker.challengeType?.id, 'view']">{{
+              tradersChallengeTracker.challengeType?.challengeTypeName
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ tradersChallengeTracker.user?.id }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/traders-challenge-tracker', tradersChallengeTracker.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

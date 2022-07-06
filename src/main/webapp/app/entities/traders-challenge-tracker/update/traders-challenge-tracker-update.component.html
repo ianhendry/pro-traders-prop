@@ -1,0 +1,211 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-traders-challenge-tracker-heading" data-cy="TradersChallengeTrackerCreateUpdateHeading">
+        Create or edit a Traders Challenge Tracker
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_tradeChallengeName">Trade Challenge Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tradeChallengeName"
+            id="field_tradeChallengeName"
+            data-cy="tradeChallengeName"
+            formControlName="tradeChallengeName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_startDate">Start Date</label>
+          <div class="d-flex">
+            <input
+              id="field_startDate"
+              data-cy="startDate"
+              type="datetime-local"
+              class="form-control"
+              name="startDate"
+              formControlName="startDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_accountDayStartBalance">Account Day Start Balance</label>
+          <input
+            type="number"
+            class="form-control"
+            name="accountDayStartBalance"
+            id="field_accountDayStartBalance"
+            data-cy="accountDayStartBalance"
+            formControlName="accountDayStartBalance"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_accountDayStartEquity">Account Day Start Equity</label>
+          <input
+            type="number"
+            class="form-control"
+            name="accountDayStartEquity"
+            id="field_accountDayStartEquity"
+            data-cy="accountDayStartEquity"
+            formControlName="accountDayStartEquity"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_runningMaxTotalDrawdown">Running Max Total Drawdown</label>
+          <input
+            type="number"
+            class="form-control"
+            name="runningMaxTotalDrawdown"
+            id="field_runningMaxTotalDrawdown"
+            data-cy="runningMaxTotalDrawdown"
+            formControlName="runningMaxTotalDrawdown"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_runningMaxDailyDrawdown">Running Max Daily Drawdown</label>
+          <input
+            type="number"
+            class="form-control"
+            name="runningMaxDailyDrawdown"
+            id="field_runningMaxDailyDrawdown"
+            data-cy="runningMaxDailyDrawdown"
+            formControlName="runningMaxDailyDrawdown"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_lowestDrawdownPoint">Lowest Drawdown Point</label>
+          <input
+            type="number"
+            class="form-control"
+            name="lowestDrawdownPoint"
+            id="field_lowestDrawdownPoint"
+            data-cy="lowestDrawdownPoint"
+            formControlName="lowestDrawdownPoint"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_rulesViolated">Rules Violated</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="rulesViolated"
+            id="field_rulesViolated"
+            data-cy="rulesViolated"
+            formControlName="rulesViolated"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ruleViolated">Rule Violated</label>
+          <input
+            type="text"
+            class="form-control"
+            name="ruleViolated"
+            id="field_ruleViolated"
+            data-cy="ruleViolated"
+            formControlName="ruleViolated"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ruleViolatedDate">Rule Violated Date</label>
+          <div class="d-flex">
+            <input
+              id="field_ruleViolatedDate"
+              data-cy="ruleViolatedDate"
+              type="datetime-local"
+              class="form-control"
+              name="ruleViolatedDate"
+              formControlName="ruleViolatedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_mt4Account">Mt 4 Account</label>
+          <select class="form-control" id="field_mt4Account" data-cy="mt4Account" name="mt4Account" formControlName="mt4Account">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                mt4AccountOption.id === editForm.get('mt4Account')!.value?.id ? editForm.get('mt4Account')!.value : mt4AccountOption
+              "
+              *ngFor="let mt4AccountOption of mt4AccountsCollection; trackBy: trackMt4AccountById"
+            >
+              {{ mt4AccountOption.accountID }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_challengeType">Challenge Type</label>
+          <select
+            class="form-control"
+            id="field_challengeType"
+            data-cy="challengeType"
+            name="challengeType"
+            formControlName="challengeType"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                challengeTypeOption.id === editForm.get('challengeType')!.value?.id
+                  ? editForm.get('challengeType')!.value
+                  : challengeTypeOption
+              "
+              *ngFor="let challengeTypeOption of challengeTypesSharedCollection; trackBy: trackChallengeTypeById"
+            >
+              {{ challengeTypeOption.challengeTypeName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

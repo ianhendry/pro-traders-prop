@@ -1,0 +1,164 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-site-account-heading" data-cy="SiteAccountCreateUpdateHeading">Create or edit a Site Account</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_accountName">Account Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="accountName"
+            id="field_accountName"
+            data-cy="accountName"
+            formControlName="accountName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userPicture">User Picture</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('userPictureContentType')!.value + ';base64,' + editForm.get('userPicture')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('userPicture')!.value"
+              alt="siteAccount image"
+            />
+            <div *ngIf="editForm.get('userPicture')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('userPictureContentType')!.value }}, {{ byteSize(editForm.get('userPicture')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('userPicture', 'userPictureContentType', 'file_userPicture')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_userPicture"
+              data-cy="userPicture"
+              (change)="setFileData($event, 'userPicture', true)"
+              accept="image/*"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="userPicture"
+            id="field_userPicture"
+            data-cy="userPicture"
+            formControlName="userPicture"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="userPictureContentType"
+            id="field_userPictureContentType"
+            formControlName="userPictureContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_userBio">User Bio</label>
+          <textarea class="form-control" name="userBio" id="field_userBio" data-cy="userBio" formControlName="userBio"></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_inActive">In Active</label>
+          <input type="checkbox" class="form-check" name="inActive" id="field_inActive" data-cy="inActive" formControlName="inActive" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_inActiveDate">In Active Date</label>
+          <div class="d-flex">
+            <input
+              id="field_inActiveDate"
+              data-cy="inActiveDate"
+              type="datetime-local"
+              class="form-control"
+              name="inActiveDate"
+              formControlName="inActiveDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.login }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addressDetails">Address Details</label>
+          <select
+            class="form-control"
+            id="field_addressDetails"
+            data-cy="addressDetails"
+            name="addressDetails"
+            formControlName="addressDetails"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                billingDetailsOption.id === editForm.get('addressDetails')!.value?.id
+                  ? editForm.get('addressDetails')!.value
+                  : billingDetailsOption
+              "
+              *ngFor="let billingDetailsOption of billingDetailsSharedCollection; trackBy: trackBillingDetailsById"
+            >
+              {{ billingDetailsOption.contactName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption"
+              *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
+            >
+              {{ userOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

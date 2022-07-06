@@ -1,0 +1,82 @@
+{
+  "applications": "*",
+  "changelogDate": "20220706000453",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "mt_4_trade",
+  "fields": [
+    {
+      "fieldName": "ticket",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "openTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "directionType",
+      "fieldType": "TRADEDIRECTION",
+      "fieldValues": "BUY,SELL"
+    },
+    {
+      "fieldName": "positionSize",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "symbol",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "openPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "stopLossPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "takeProfitPrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "closeTime",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "closePrice",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "commission",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "taxes",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "swap",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "profit",
+      "fieldType": "Double"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Mt4Trade",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "accountID",
+      "otherEntityName": "mt4Account",
+      "otherEntityRelationshipName": "mt4Trade",
+      "relationshipName": "mt4Account",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}

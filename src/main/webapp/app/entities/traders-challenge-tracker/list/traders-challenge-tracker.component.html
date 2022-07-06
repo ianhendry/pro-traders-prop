@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="TradersChallengeTrackerHeading">
+    <span>Traders Challenge Trackers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-traders-challenge-tracker"
+        [routerLink]="['/traders-challenge-tracker/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Traders Challenge Tracker </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="tradersChallengeTrackers?.length === 0">
+    <span>No tradersChallengeTrackers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="tradersChallengeTrackers && tradersChallengeTrackers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tradeChallengeName"><span>Trade Challenge Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="startDate"><span>Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="accountDayStartBalance"><span>Account Day Start Balance</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="accountDayStartEquity"><span>Account Day Start Equity</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="runningMaxTotalDrawdown"><span>Running Max Total Drawdown</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="runningMaxDailyDrawdown"><span>Running Max Daily Drawdown</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lowestDrawdownPoint"><span>Lowest Drawdown Point</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="rulesViolated"><span>Rules Violated</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ruleViolated"><span>Rule Violated</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ruleViolatedDate"><span>Rule Violated Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="mt4Account.accountID"><span>Mt 4 Account</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="challengeType.challengeTypeName"><span>Challenge Type</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="user.id"><span>User</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tradersChallengeTracker of tradersChallengeTrackers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/traders-challenge-tracker', tradersChallengeTracker.id, 'view']">{{ tradersChallengeTracker.id }}</a>
+          </td>
+          <td>{{ tradersChallengeTracker.tradeChallengeName }}</td>
+          <td>{{ tradersChallengeTracker.startDate | formatMediumDatetime }}</td>
+          <td>{{ tradersChallengeTracker.accountDayStartBalance }}</td>
+          <td>{{ tradersChallengeTracker.accountDayStartEquity }}</td>
+          <td>{{ tradersChallengeTracker.runningMaxTotalDrawdown }}</td>
+          <td>{{ tradersChallengeTracker.runningMaxDailyDrawdown }}</td>
+          <td>{{ tradersChallengeTracker.lowestDrawdownPoint }}</td>
+          <td>{{ tradersChallengeTracker.rulesViolated }}</td>
+          <td>{{ tradersChallengeTracker.ruleViolated }}</td>
+          <td>{{ tradersChallengeTracker.ruleViolatedDate | formatMediumDatetime }}</td>
+          <td>
+            <div *ngIf="tradersChallengeTracker.mt4Account">
+              <a [routerLink]="['/mt-4-account', tradersChallengeTracker.mt4Account?.id, 'view']">{{
+                tradersChallengeTracker.mt4Account?.accountID
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="tradersChallengeTracker.challengeType">
+              <a [routerLink]="['/challenge-type', tradersChallengeTracker.challengeType?.id, 'view']">{{
+                tradersChallengeTracker.challengeType?.challengeTypeName
+              }}</a>
+            </div>
+          </td>
+          <td>
+            {{ tradersChallengeTracker.user?.id }}
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/traders-challenge-tracker', tradersChallengeTracker.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/traders-challenge-tracker', tradersChallengeTracker.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(tradersChallengeTracker)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="tradersChallengeTrackers && tradersChallengeTrackers.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

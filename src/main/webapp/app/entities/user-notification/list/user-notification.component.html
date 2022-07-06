@@ -1,0 +1,121 @@
+<div>
+  <h2 id="page-heading" data-cy="UserNotificationHeading">
+    <span>User Notifications</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-user-notification"
+        [routerLink]="['/user-notification/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new User Notification </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="userNotifications?.length === 0">
+    <span>No userNotifications found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="userNotifications && userNotifications.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="commentTitle"><span>Comment Title</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="commentBody"><span>Comment Body</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="commentMedia"><span>Comment Media</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dateAdded"><span>Date Added</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="makePublicVisibleOnSite"><span>Make Public Visible On Site</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="tradersChallengeTracker.id"><span>Traders Challenge Tracker</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let userNotification of userNotifications; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/user-notification', userNotification.id, 'view']">{{ userNotification.id }}</a>
+          </td>
+          <td>{{ userNotification.commentTitle }}</td>
+          <td>{{ userNotification.commentBody }}</td>
+          <td>
+            <a
+              *ngIf="userNotification.commentMedia"
+              (click)="openFile(userNotification.commentMedia, userNotification.commentMediaContentType)"
+              >open</a
+            >
+            <span *ngIf="userNotification.commentMedia"
+              >{{ userNotification.commentMediaContentType }}, {{ byteSize(userNotification.commentMedia) }}</span
+            >
+          </td>
+          <td>{{ userNotification.dateAdded | formatMediumDatetime }}</td>
+          <td>{{ userNotification.makePublicVisibleOnSite }}</td>
+          <td>
+            <div *ngIf="userNotification.tradersChallengeTracker">
+              <a [routerLink]="['/traders-challenge-tracker', userNotification.tradersChallengeTracker?.id, 'view']">{{
+                userNotification.tradersChallengeTracker?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/user-notification', userNotification.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/user-notification', userNotification.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(userNotification)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="userNotifications && userNotifications.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
